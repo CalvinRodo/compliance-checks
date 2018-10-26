@@ -7,7 +7,7 @@ To use the docker container effectively you need to specify the following enviro
 | VARIABLE    | DEFAULT VALUE       | DESCRIPTION                                                  |
 | ----------- | ------------------- | ------------------------------------------------------------ |
 | ORIGIN      | Missing origin      | The origin of the check, for example a container name        |
-| COMPONENT   | Missing componet    | The component the check is running on. Example: "Souce code" |
+| COMPONENT   | Missing componet    | The component the check is running on. Example: "Source code" |
 | DESCRIPTION | Missing description | A narrative description of the check run                     |
 | OUT_PATH    | "/checks"           | Where the JSON files gets written to                         |
 | SATISFIES   | _None_              | A comma delimited string of all the ex: `AU 2, AU 3`         |
