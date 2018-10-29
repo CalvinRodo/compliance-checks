@@ -8,5 +8,5 @@ roleRef:
   name: default
 subjects:
   - kind: ServiceAccount
-    name: pod-check
+    name: default
     namespace: default
