@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -61,13 +62,16 @@ func getEnv(key, fallback string) string {
 
 func urlExists(url string) bool {
 	timeout := time.Duration(1 * time.Second)
-	client := http.Client{
-		Timeout: timeout,
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
+	client := &http.Client{Transport: tr, Timeout: timeout}
 	_, err := client.Get(url)
 	if err != nil {
+		fmt.Println("Error: " + err.Error())
 		return false
 	}
+	fmt.Println("URL: " + url + " exists.")
 	return true
 }
 
