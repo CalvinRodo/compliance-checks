@@ -4,14 +4,14 @@ The purpose of this container is to check if URL exists, which is specified thro
 
 To use the docker container effectively you need to specify the following environmental variables
 
-| VARIABLE    | DEFAULT VALUE       | DESCRIPTION                                                  |
-| ----------- | ------------------- | ------------------------------------------------------------ |
-| ORIGIN      | Missing origin      | The origin of the check, for example a container name        |
+| VARIABLE    | DEFAULT VALUE       | DESCRIPTION                                                   |
+| ----------- | ------------------- | ------------------------------------------------------------- |
+| ORIGIN      | Missing origin      | The origin of the check, for example a container name         |
 | COMPONENT   | Missing componet    | The component the check is running on. Example: "Source code" |
-| DESCRIPTION | Missing description | A narrative description of the check run                     |
-| OUT_PATH    | "/checks"           | Where the JSON files gets written to                         |
-| SATISFIES   | _None_              | A comma delimited string of all the ex: `AU 2, AU 3`         |
-| URL         | _None_              | The URL to check                                             |
+| DESCRIPTION | Missing description | A narrative description of the check run                      |
+| OUT_PATH    | "/checks"           | Where the JSON files gets written to                          |
+| SATISFIES   | _None_              | A comma delimited string of all the ex: `AU 2, AU 3`          |
+| URL         | _None_              | The URL to check                                              |
 
 For example running the docker container with the following command:
 
@@ -63,26 +63,20 @@ spec:
     -
       image: 'cdssnc/url-check-compliance:latest'
       imagePullPolicy: Always
-      name: 'url-check-compliance:sa-11-1'
+      name: 'url-check-compliance-sa-11-1'
       env:
-        -
-          name: ORIGIN
+        - name: ORIGIN
           value: 'cdssnc/url-check-compliance:latest'
-        -
-          name: COMPONENT
+        - name: COMPONENT
           value: 'Source code'
-        -
-          name: DESCRIPTION
+        - name: DESCRIPTION
           value: 'The application uses an ESLint file to do so static code analysis.'
-        -
-          name: SATISFIES
+        - name: SATISFIES
           value: 'SA-11 (1)'
-        -
-          name: URL
-          value: 'https://github.com/cds-snc/vac-benefits-directory/blob/master/.eslintrc.json'
+        - name: URL
+          value: 'https://github.com/cds-snc/mrpinchy-confession-box/blob/master/.eslintrc.json'
       volumeMounts:
-        -
-          name: compliance-checks
+        - name: compliance-checks
           mountPath: /checks
   volumes:
     -
