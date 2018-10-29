@@ -60,6 +60,10 @@ func TestUrlExists(t *testing.T) {
 	exists = urlExists("http://abcd.efgh.jklm")
 	assert.Equal(t, exists, false, "they should be equal")
 
+	// Returns false if the URL is not 200
+	exists = urlExists("https://httpbin.org/status/400")
+	assert.Equal(t, exists, false, "they should be equal")
+
 	// Returns false if the URL is empty
 	exists = urlExists("")
 	assert.Equal(t, exists, false, "they should be equal")

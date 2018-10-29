@@ -66,13 +66,18 @@ func urlExists(url string) bool {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	client := &http.Client{Transport: tr, Timeout: timeout}
-	_, err := client.Get(url)
+	resp, err := client.Get(url)
 	if err != nil {
 		fmt.Println("Error: " + err.Error())
 		return false
 	}
-	fmt.Println("URL: " + url + " exists.")
-	return true
+	if resp.StatusCode >= 200 && resp.StatusCode <= 299 {
+		fmt.Println("URL: " + url + " exists.")
+		return true
+	}
+	fmt.Println("URL: " + url + " did not return a 200 range code.")
+	return false
+
 }
 
 func outputValidationFile(check CheckResult, path string) (string, error) {
