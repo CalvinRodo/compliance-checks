@@ -88,6 +88,7 @@ func podExists(needle string) bool {
 		for j := 0; j < len(containers); j++ {
 			container := containers[j]
 			name := container.Name
+			fmt.Println(name)
 			if strings.Contains(name, needle) {
 				compliant = true
 			}
