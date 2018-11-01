@@ -1,6 +1,6 @@
-## GitHub Review Check container
+## GitHub Synky Check container
 
-The purpose of this container is to check if a GitHub repo does code review. It does this by looping over the first response of closed pull requests from the GitHub API and checks if any reviewers have been flagged. It will output a JSON file to the `/checks` directory, or whatever is specified in `OUT_PATH` environment variable.
+The purpose of this container is to check if a GitHub repo uses Snyk. It does this by looping over the statuses of closed pull requests from the GitHub API and checks if any have Snyk in their context. It will output a JSON file to the `/checks` directory, or whatever is specified in `OUT_PATH` environment variable.
 
 To use the docker container effectively you need to specify the following environmental variables
 
@@ -32,18 +32,18 @@ spec:
           name: compliance-checks
           mountPath: /checks
   initContainers:
-    - image: 'cdssnc/github-reviews-check-compliance:latest'
+    - image: 'cdssnc/github-snyk-check-compliance:latest'
         imagePullPolicy: Always
-        name: 'github-reviews-check-compliance-sa-11-4
+        name: 'github-snyk-check-compliance-si-5
         env:
           - name: ORIGIN
-            value: 'cdssnc/github-reviews-check-compliance:latest'
+            value: 'cdssnc/github-snyk-check-compliance:latest'
           - name: COMPONENT
             value: 'Infrastructure'
           - name: DESCRIPTION
-            value: 'The GitHub repo shows pull requests with reviews.'
+            value: 'The GitHub repo shows pull requests with the Synk check enabled.'
           - name: SATISFIES
-            value: 'SA-11 (4)'
+            value: 'SI-5'
           - name: REPO_URL
             value: 'https://github.com/cds-snc/vac-benefits-directory'
       volumeMounts:
