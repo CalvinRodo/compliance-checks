@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -88,12 +89,19 @@ func hasReviews(repo string) bool {
 
 	json.NewDecoder(resp.Body).Decode(&results)
 	if len(results) > 0 {
-		for i := 0; i < len(results); i++ {
-			r, _ := results[i].(map[string]interface{})
-			reviewers, _ := r["requested_reviewers"].([]interface{})
-			if len(reviewers) > 0 {
-				return true
-			}
+		first := results[0].(map[string]interface{})
+		number := first["number"].(float64)
+		url := "https://api.github.com/repos" + u.Path + "/pulls/" + strconv.FormatFloat(number, 'f', -1, 64) + "/reviews"
+		r, err := client.Get(url)
+		if err != nil {
+			fmt.Println("Error: " + err.Error())
+			return false
+		}
+		defer r.Body.Close()
+		var checks []interface{}
+		json.NewDecoder(r.Body).Decode(&checks)
+		if len(checks) > 0 {
+			return true
 		}
 	}
 	return false
