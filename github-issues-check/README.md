@@ -1,6 +1,6 @@
-## GitHub Synk Check container
+## GitHub Issues Check container
 
-The purpose of this container is to check if a GitHub repo uses Snyk. It does this by looping over the statuses of closed pull requests from the GitHub API and checks if any have Snyk in their context. It will output a JSON file to the `/checks` directory, or whatever is specified in `OUT_PATH` environment variable.
+The purpose of this container is to check if a GitHub repo has issues. It does this by queryin the GitHub API if it returns any issues for a given project. It will output a JSON file to the `/checks` directory, or whatever is specified in `OUT_PATH` environment variable.
 
 To use the docker container effectively you need to specify the following environmental variables
 
@@ -32,18 +32,18 @@ spec:
           name: compliance-checks
           mountPath: /checks
   initContainers:
-    - image: 'cdssnc/github-snyk-check-compliance:latest'
+    - image: 'cdssnc/github-issue-check-compliance:latest'
         imagePullPolicy: Always
-        name: 'github-snyk-check-compliance-si-5
+        name: 'github-issue-check-compliance-si-2
         env:
           - name: ORIGIN
             value: 'cdssnc/github-snyk-check-compliance:latest'
           - name: COMPONENT
             value: 'Infrastructure'
           - name: DESCRIPTION
-            value: 'The GitHub repo shows pull requests with the Synk check enabled.'
+            value: 'The GitHub repo shows issues which indicate a policy of flaw remediation.'
           - name: SATISFIES
-            value: 'SI-5'
+            value: 'SI-2'
           - name: REPO_URL
             value: 'https://github.com/cds-snc/vac-benefits-directory'
       volumeMounts:
