@@ -70,7 +70,7 @@ func hasIssues(repo string) bool {
 		return false
 	}
 
-	url := "https://api.github.com/repos" + u.Path + "/issues"
+	url := "https://api.github.com/repos" + u.Path + "/issues?state=all"
 
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
@@ -87,7 +87,6 @@ func hasIssues(repo string) bool {
 
 	json.NewDecoder(resp.Body).Decode(&results)
 	if len(results) > 0 {
-          fmt.Println(len(results))
             return true
 	}
 	return false

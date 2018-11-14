@@ -24,7 +24,7 @@ func TestHasIssues(t *testing.T) {
 	assert.Equal(t, issues, true, "they should be equal")
 
 	// Returns false if the GitHub Repo has no issues
-	issues = hasIssues("https://github.com/cds-snc/ITSG-33-definitions")
+	issues = hasIssues("https://github.com/maxneuvians/dotfiles")
 	assert.Equal(t, issues, false, "they should be equal")
 
 	// Returns false if no URL is passed
