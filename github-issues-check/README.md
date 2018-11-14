@@ -32,12 +32,12 @@ spec:
           name: compliance-checks
           mountPath: /checks
   initContainers:
-    - image: 'cdssnc/github-issue-check-compliance:latest'
+    - image: 'cdssnc/github-issues-check-compliance:latest'
         imagePullPolicy: Always
-        name: 'github-issue-check-compliance-si-2
+        name: 'github-issues-check-compliance-si-2
         env:
           - name: ORIGIN
-            value: 'cdssnc/github-snyk-check-compliance:latest'
+            value: 'cdssnc/github-issues-check-compliance:latest'
           - name: COMPONENT
             value: 'Infrastructure'
           - name: DESCRIPTION
