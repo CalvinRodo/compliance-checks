@@ -23,6 +23,7 @@ type CheckResult struct {
 	Description string   `json:"description"`
 	References  string   `json:"references"`
 	Component   string   `json:"component"`
+        Release     string   `json:"release"`
 }
 
 func main() {
@@ -35,11 +36,13 @@ func runCheck() (string, error) {
 	description := getEnv("DESCRIPTION", "Missing description")
 	path := getEnv("OUT_PATH", "/checks/")
 	satisfies := getEnv("SATISFIES", "")
+        release := getEnv("RELEASE", "")
 	repo := getEnv("REPO_URL", "")
 
 	cr := CheckResult{
 		Origin:      origin,
 		Component:   component,
+                Release:     release,
 		Timestamp:   time.Now().UTC().Format(time.RFC3339),
 		Description: description,
 		References:  repo,
