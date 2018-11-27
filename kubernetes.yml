@@ -1,0 +1,33 @@
+---
+spec:
+  containers:
+    -
+      image: cdssnc/compliance-api
+      imagePullPolicy: Always
+      name: compliance-api
+      resources: {}
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+  initContainers:
+    - image: 'cdssnc/github-reviews-check-compliance:latest'
+        imagePullPolicy: Always
+        name: 'github-reviews-check-compliance-sa-11-4'
+        env:
+          - name: ORIGIN
+            value: 'cdssnc/github-reviews-check-compliance:latest'
+          - name: COMPONENT
+            value: 'Infrastructure'
+          - name: DESCRIPTION
+            value: 'The GitHub repo shows pull requests with reviews.'
+          - name: SATISFIES
+            value: 'SA-11 (4)'
+          - name: REPO_URL
+            value: 'https://github.com/cds-snc/vac-benefits-directory'
+      volumeMounts:
+        - name: compliance-checks
+          mountPath: /checks
+  volumes:
+    -
+      name: compliance-checks
+      hostPath:
+        path: /checks
